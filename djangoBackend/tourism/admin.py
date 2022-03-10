@@ -1,7 +1,11 @@
 from django.contrib import admin
 
-from tourism.models import famous, village
+from tourism.models import *
 
-# Register your models here.
-admin.site.register(village)
-admin.site.register(famous)
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ["location"] 
+
+@admin.register(Famous)
+class FamousAdmin(admin.ModelAdmin):
+    list_display = ["item",'location']
