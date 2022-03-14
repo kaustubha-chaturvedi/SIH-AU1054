@@ -1,15 +1,87 @@
 from django.db import models
+from django.utils import timezone
+from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin,Group
 
+class UserManager(BaseUserManager):
+
+    use_in_migrations = True
+
+    def _create_user(self, email, password, **extra_fields):
+        if not email:
+            raise ValueError('The given email must be set')
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(email, password, **extra_fields)
+
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError(
+                'Superuser must have is_staff=True.'
+            )
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError(
+                'Superuser must have is_superuser=True.'
+            )
+
+        return self._create_user(email, password, **extra_fields)
+
+
+
+class User(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True,max_length=255,blank=False)
+    first_name = models.CharField('first name',max_length=150,blank=True)
+    last_name = models.CharField('last name',max_length=150,blank=True)
+    is_staff = models.BooleanField('staff status',default=False)
+    is_active = models.BooleanField('active',default=True)
+    is_superuser = models.BooleanField('superuser',default=False)
+    date_joined = models.DateTimeField('date joined',default=timezone.now)
+    usergroup = models.ForeignKey(Group,related_name="groups",on_delete=models.SET_NULL,null=True,blank=True)
+  
+    USERNAME_FIELD = 'email'
+    objects = UserManager()
+
+    def __str__(self):
+        return self.email
+
+    def full_name(self):
+        return self.first_name+" "+self.last_name
 # Create your models here.
 
 class Location(models.Model):
     location = models.TextField()
     def __str__(self):
         return self.location
-        
+    
+    class Meta:
+        verbose_name = "Location"
+        verbose_name_plural = "Locations" 
+
 class Famous(models.Model):
+    CATEGORY_CHOICES = (
+        (0, 'Places'),
+        (1, 'Food'),
+        (2, 'Collectibles'),
+    )
     item = models.TextField()
-    location = models.OneToOneField("tourism.location", on_delete=models.CASCADE,null=True)
-    category = models.TextField()
+    location = models.ForeignKey("tourism.location", on_delete=models.CASCADE,null=True)
+    category = models.IntegerField(choices=CATEGORY_CHOICES, default=0)
     like = models.IntegerField()
     dislike = models.IntegerField()
+
+    class Meta:
+        verbose_name = "Famous"
+        verbose_name_plural = "Famous"

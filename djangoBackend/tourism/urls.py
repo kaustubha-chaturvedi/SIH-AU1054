@@ -1,7 +1,14 @@
-from django.urls import path
-from . import views
+from tourism.views import *
+from django.urls import path,include
+from rest_framework.routers import DefaultRouter
 
+router = DefaultRouter()
+router.register(r'famous', FamousViewSet,basename='famous')
+router.register(r'location', LocationViewSet,basename='location')
+ 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('location/', views.location, name='location'),
+    path('', include(router.urls)),
+    path('register/', UserRegistrationView.as_view(), name='register'),
+    path('login/', UserLoginView.as_view(), name='login'),
+    path("profile/", UserProfileView.as_view(), name="profile"),
 ]
