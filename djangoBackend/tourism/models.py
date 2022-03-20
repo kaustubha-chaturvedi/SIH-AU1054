@@ -1,8 +1,12 @@
 from django.db import models
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils import timezone
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin,Group
+from rest_framework.authtoken.models import Token
 
 class UserManager(BaseUserManager):
 
@@ -79,9 +83,14 @@ class Famous(models.Model):
     item = models.TextField()
     location = models.ForeignKey("tourism.location", on_delete=models.CASCADE,null=True)
     category = models.IntegerField(choices=CATEGORY_CHOICES, default=0)
-    like = models.IntegerField()
-    dislike = models.IntegerField()
+    like = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name="likes",blank=True)
+    dislike = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name="dislikes",blank=True)
 
     class Meta:
         verbose_name = "Famous"
         verbose_name_plural = "Famous"
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)

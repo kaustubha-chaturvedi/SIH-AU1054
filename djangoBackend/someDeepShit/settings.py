@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework.authtoken',
     'rest_framework',
     'django_filters',
     'tourism',
@@ -133,7 +134,6 @@ REST_FRAMEWORK = {
     'SEARCH_PARAM': 'q',
     'DEFAULT_RENDERER_CLASSES': (
         'tourism.renderers.CustomRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',

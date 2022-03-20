@@ -1,6 +1,3 @@
-import email
-from unicodedata import category
-from django.forms import ChoiceField
 from rest_framework import serializers
 from tourism.models import *
 

@@ -5,12 +5,14 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 
 class FamousViewSet(ModelViewSet):
     queryset = Famous.objects.all()
     serializer_class = FamousSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
     filterset_fields = ['category','location']
     search_fields = ['^item']
     ordering_fields = ['category','like','dislike']
@@ -18,7 +20,8 @@ class FamousViewSet(ModelViewSet):
 class LocationViewSet(ModelViewSet):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
 
 class UserRegistrationView(APIView):
     def post(self,request,format=None):
