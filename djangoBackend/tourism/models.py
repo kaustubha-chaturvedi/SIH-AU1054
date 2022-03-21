@@ -7,6 +7,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin,Group
 from rest_framework.authtoken.models import Token
+
 class UserManager(BaseUserManager):
 
     use_in_migrations = True
@@ -62,10 +63,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def full_name(self):
         return self.first_name+" "+self.last_name
+        
 class Location(models.Model):
     location = models.TextField()
     
-    def __str__(self,location):
+    def __str__(self):
         return self.location
     
     class Meta:
