@@ -7,7 +7,6 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
-
 class FamousViewSet(ModelViewSet):
     queryset = Famous.objects.all()
     serializer_class = FamousSerializer
