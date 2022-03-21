@@ -1,5 +1,5 @@
-from django.db import models
 from django.conf import settings
+from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
@@ -7,7 +7,6 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin,Group
 from rest_framework.authtoken.models import Token
-
 class UserManager(BaseUserManager):
 
     use_in_migrations = True
@@ -63,11 +62,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def full_name(self):
         return self.first_name+" "+self.last_name
-# Create your models here.
-
 class Location(models.Model):
     location = models.TextField()
-    def __str__(self):
+    
+    def __str__(self,location):
         return self.location
     
     class Meta:
