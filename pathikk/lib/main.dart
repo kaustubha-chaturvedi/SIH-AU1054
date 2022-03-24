@@ -14,10 +14,13 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
         fontFamily: GoogleFonts.lato().fontFamily,
         primaryTextTheme: GoogleFonts.latoTextTheme(),
       ),
+      themeMode: ThemeMode.dark,
+      
       debugShowCheckedModeBanner: false,
       routes: {"/": ((context) => HomeScreen())},
     );

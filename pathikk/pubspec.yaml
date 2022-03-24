@@ -37,7 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   velocity_x: ^3.3.0  
   google_fonts: ^2.3.1
-  http: 
+  http:
+  flutter_html: ^2.2.1
 
 
 

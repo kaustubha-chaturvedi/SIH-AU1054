@@ -1,24 +1,7 @@
-import 'dart:html';
-
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter/material.dart';
 import 'package:pathikk/widgets/model.dart';
 import 'package:velocity_x/velocity_x.dart';
-
-class listheader extends StatelessWidget {
-  const listheader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Pathik").text.bold.xl5.make(),
-        Text("for making best memories").text.make(),
-      ],
-    );
-  }
-}
 
 class Itemlister extends StatelessWidget {
   const Itemlister({Key? key}) : super(key: key);
@@ -35,7 +18,6 @@ class Itemlister extends StatelessWidget {
             location = a;
           }
         }
-        ;
         return listcard1(things: things, location: location);
       },
     );
@@ -50,51 +32,68 @@ class listcard1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        // color: Colors.amber[50],
-        // shadowColor: Colors.blue[100],
-        // child: Padding(
-        //   padding: EdgeInsets.all(8.0),
-        //   child: ListTile(
-        //     leading: Column(
-        //       children: [
-        //         Text(things.name),
-        //         Text(location.locs.toString()).expand()
-        //       ],
-        //     ),
-        //     trailing: Icon(Icons.map),
-        //   ),
-        //   // child: Column(children: [Text(things.name)]),
-        // ),
-        child: Row(children: [
-      things.images != null
-          ? Image.network(
-                  "https://media-cdn.tripadvisor.com/media/photo-s/0f/1b/1d/44/view-from-boat.jpg")
-              .box
-              .make()
-              .p8()
-              .w32(context)
-          : Image.network(
-                  "https://media.istockphoto.com/vectors/no-image-vector-symbol-missing-available-icon-no-gallery-for-this-vector-id1128826884?k=20&m=1128826884&s=170667a&w=0&h=_cx7HW9R4Uc_OLLxg2PcRXno4KERpYLi5vCz-NEyhi0=")
-              .box
-              .make()
-              .p8()
-              .w32(context),
-      Expanded(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(things.name.toString()).text.bold.color(Colors.blue).make(),
-          Text(location.locs).text.color(Colors.lightBlue).make(),
-          ButtonBar(
-            alignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(things.likes.toString()).text.bold.make(),
-            ],
-          )
-        ],
-      ))
-    ]));
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+      child: Card(
+          color: Color.fromARGB(255, 39, 34, 34),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: Row(children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.35,
+              height: MediaQuery.of(context).size.height * 0.15,
+              margin: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Color.fromARGB(0, 39, 34, 0),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage((things.images != null && things.images != "")
+                        ? 'https://res.cloudinary.com/sihau1054/${things.images}'
+                        : 'https://res.cloudinary.com/sihau1054/image/upload/v1648141871/eee_k6kbyq.png')),
+              ),
+            ),
+            Expanded(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(things.name.toString())
+                    .text
+                    .bold
+                    .color(Colors.yellow)
+                    .make(),
+                Text(location.locs).text.color(Colors.yellow).make(),
+                Wrap(
+                  spacing: 12.0,
+                  children: [
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 4.0,
+                      children: [
+                        Icon(Icons.thumb_up_alt_rounded),
+                        Text(things.likes.length.toString()).text.bold.make(),
+                      ],
+                    ),
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 4.0,
+                      children: [
+                        Icon(Icons.thumb_down_alt_rounded),
+                        Text(things.dislikes.length.toString())
+                            .text
+                            .bold
+                            .make(),
+                      ],
+                    ),
+                  ],
+                ),
+                (things.description != null && things.description != "")
+                    ? Html(data: things.description)
+                    : Text("No description").text.color(Colors.yellow).make(),
+              ],
+            ))
+          ])),
+    );
   }
 }

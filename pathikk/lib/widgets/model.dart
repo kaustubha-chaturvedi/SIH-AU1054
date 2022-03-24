@@ -4,6 +4,7 @@ class fam_Items {
   final int category;
   final String name;
   final dynamic images;
+  final dynamic description;
   final int location;
   final List likes;
   final List dislikes;
@@ -13,6 +14,7 @@ class fam_Items {
     required this.category,
     required this.name,
     required this.images,
+    required this.description,
     required this.location,
     required this.likes,
     required this.dislikes,
@@ -26,7 +28,8 @@ class fam_Items {
         location: map["location"],
         likes: map["like"],
         dislikes: map["dislike"],
-        images: map["images"]);
+        images: map["images"],
+        description: map["description"]);
   }
 }
 
@@ -34,13 +37,14 @@ class famous_catalog {
   static List<fam_Items> fitems = [
     fam_Items(
         id: 0,
-        category: 2,
-        name: "lwda",
-        location: 3,
-        likes: [1, 2, 3],
-        dislikes: [4, 5, 6],
+        category: 0,
+        name: "",
+        location: 0,
+        likes: [],
+        dislikes: [],
         images:
-            'https://media.istockphoto.com/vectors/no-image-vector-symbol-missing-available-icon-no-gallery-for-this-vector-id1128826884?k=20&m=1128826884&s=170667a&w=0&h=_cx7HW9R4Uc_OLLxg2PcRXno4KERpYLi5vCz-NEyhi0=')
+            '',
+        description: "No Description")
   ];
 }
 

@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pathikk/widgets/Homewids.dart';
 import 'package:pathikk/widgets/model.dart';
 import 'package:pathikk/widgets/search.dart';
@@ -26,10 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
 //loading data from json files/apis
 
   loaddata() async {
-    //loading from json file
-    // var jsoitem = await rootBundle.loadString("assets/data.json");
-    // var item_data = jsonDecode(jsoitem);
-
     const url_items = "http://localhost:8000/api/famous/";
     const url_locations = "http://localhost:8000/api/location/";
 
@@ -41,9 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
     var jsolocation = response2.body;
     var locs_data = jsonDecode(jsolocation);
 
-    // var jsolocs = await rootBundle.loadString("locdata.json");
-    // var locs_data = jsonDecode(jsolocs);
-
     famous_catalog.fitems = List.from(item_data)
         .map<fam_Items>((items) => fam_Items.fromMap(items))
         .toList();
@@ -51,8 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
     astd_location.flocs = List.from(locs_data)
         .map<locations>((locationx) => locations.fromMap(locationx))
         .toList();
-    print(item_data);
-    print(locs_data);
     setState(() {});
   }
 
@@ -72,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Container(
         child: Column(
-          children: [const listheader(), Itemlister().expand()],
+          children: [Itemlister().expand()],
         ),
       ),
       drawer: MainDrawer(),
