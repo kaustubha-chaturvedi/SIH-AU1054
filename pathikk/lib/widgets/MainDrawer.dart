@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pathikk/widgets/login.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class MainDrawer extends StatelessWidget {
 
     return Drawer(
       child: ListView(
-        children: const [
+        children: [
           DrawerHeader(
             padding: EdgeInsets.zero,
             margin: EdgeInsets.zero,
@@ -29,9 +30,13 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           ListTile(leading: Icon(CupertinoIcons.home), title: Text('home')),
-          ListTile(
-              leading: Icon(CupertinoIcons.profile_circled),
-              title: Text('Login')),
+          InkWell(
+            onTap: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Login())),
+            child: ListTile(
+                leading: Icon(CupertinoIcons.profile_circled),
+                title: Text('Login')),
+          ),
           ListTile(
               leading: Icon(CupertinoIcons.settings), title: Text('settings '))
         ],

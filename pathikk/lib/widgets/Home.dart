@@ -51,8 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
     astd_location.flocs = List.from(locs_data)
         .map<locations>((locationx) => locations.fromMap(locationx))
         .toList();
-    print(item_data);
-    print(locs_data);
+
     setState(() {});
   }
 

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:pathikk/widgets/model.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'Item_desc.dart';
+
 class listheader extends StatelessWidget {
   const listheader({Key? key}) : super(key: key);
 
@@ -50,51 +52,50 @@ class listcard1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        // color: Colors.amber[50],
-        // shadowColor: Colors.blue[100],
-        // child: Padding(
-        //   padding: EdgeInsets.all(8.0),
-        //   child: ListTile(
-        //     leading: Column(
-        //       children: [
-        //         Text(things.name),
-        //         Text(location.locs.toString()).expand()
-        //       ],
-        //     ),
-        //     trailing: Icon(Icons.map),
-        //   ),
-        //   // child: Column(children: [Text(things.name)]),
-        // ),
-        child: Row(children: [
-      things.images != null
-          ? Image.network(
-                  "https://media-cdn.tripadvisor.com/media/photo-s/0f/1b/1d/44/view-from-boat.jpg")
-              .box
-              .make()
-              .p8()
-              .w32(context)
-          : Image.network(
-                  "https://media.istockphoto.com/vectors/no-image-vector-symbol-missing-available-icon-no-gallery-for-this-vector-id1128826884?k=20&m=1128826884&s=170667a&w=0&h=_cx7HW9R4Uc_OLLxg2PcRXno4KERpYLi5vCz-NEyhi0=")
-              .box
-              .make()
-              .p8()
-              .w32(context),
-      Expanded(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(things.name.toString()).text.bold.color(Colors.blue).make(),
-          Text(location.locs).text.color(Colors.lightBlue).make(),
-          ButtonBar(
-            alignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(things.likes.toString()).text.bold.make(),
-            ],
-          )
-        ],
-      ))
-    ]));
+    return InkWell(
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => descwid(
+                    things: things,
+                  ))),
+      child: Card(
+          shape: StadiumBorder(),
+          child: Row(children: [
+            things.images != null
+                ? Image.network(
+                        "https://media-cdn.tripadvisor.com/media/photo-s/0f/1b/1d/44/view-from-boat.jpg")
+                    .box
+                    .make()
+                    .p8()
+                    .w20(context)
+                    .clipOval()
+                : Image.network(
+                        "https://media.istockphoto.com/vectors/no-image-vector-symbol-missing-available-icon-no-gallery-for-this-vector-id1128826884?k=20&m=1128826884&s=170667a&w=0&h=_cx7HW9R4Uc_OLLxg2PcRXno4KERpYLi5vCz-NEyhi0=")
+                    .box
+                    .make()
+                    .p8()
+                    .w20(context),
+            Expanded(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(things.name.toString())
+                    .text
+                    .bold
+                    .color(Colors.blue)
+                    .make(),
+                Text(location.locs).text.color(Colors.lightBlue).make(),
+                ButtonBar(
+                  alignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(things.likes.toString()).text.bold.make(),
+                  ],
+                )
+              ],
+            ))
+          ])),
+    );
   }
 }
