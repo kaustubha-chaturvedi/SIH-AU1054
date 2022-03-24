@@ -36,14 +36,13 @@ class fam_Items {
 class famous_catalog {
   static List<fam_Items> fitems = [
     fam_Items(
-        id: 0,
+        id: "default",
         category: 0,
         name: "",
         location: 0,
         likes: [],
         dislikes: [],
-        images:
-            '',
+        images: '',
         description: "No Description")
   ];
 }

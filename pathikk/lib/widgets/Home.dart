@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 //loading data from json files/apis
 
   loaddata() async {
+    await Future.delayed(Duration(seconds: 2));
     const url_items = "http://localhost:8000/api/famous/";
     const url_locations = "http://localhost:8000/api/location/";
 
@@ -61,7 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Container(
         child: Column(
-          children: [Itemlister().expand()],
+          children: [
+            if (famous_catalog.fitems[0].id != "default")
+              Itemlister().expand()
+            else
+              const Center(child: CircularProgressIndicator())
+          ],
         ),
       ),
       drawer: MainDrawer(),

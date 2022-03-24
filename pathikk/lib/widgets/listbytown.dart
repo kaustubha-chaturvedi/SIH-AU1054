@@ -1,14 +1,34 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:pathikk/widgets/Item_desc.dart';
 import 'package:pathikk/widgets/model.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'Item_desc.dart';
+class Itemlisterbyname extends StatelessWidget {
+  const Itemlisterbyname({
+    Key? key,
+    required this.city,
+  }) : super(key: key);
+  final String city;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(city.toString())),
+      body: Itemlisterbyname2(matchit: city),
+    );
+  }
+}
 
-class Itemlister extends StatelessWidget {
-  const Itemlister({Key? key}) : super(key: key);
+class Itemlisterbyname2 extends StatelessWidget {
+  const Itemlisterbyname2({
+    Key? key,
+    required this.matchit,
+  }) : super(key: key);
 
+  final String matchit;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -21,7 +41,11 @@ class Itemlister extends StatelessWidget {
             location = a;
           }
         }
-        return listcard1(things: things, location: location);
+
+        if (location.locs.toLowerCase() == matchit.toLowerCase())
+          return listcard1(things: things);
+        else
+          return SizedBox();
       },
     );
   }
@@ -29,9 +53,8 @@ class Itemlister extends StatelessWidget {
 
 class listcard1 extends StatelessWidget {
   final things;
-  final locations location;
-  const listcard1({Key? key, required this.things, required this.location})
-      : super(key: key);
+
+  const listcard1({Key? key, required this.things}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +97,7 @@ class listcard1 extends StatelessWidget {
                       .bold
                       .color(Colors.yellow)
                       .make(),
-                  Text(location.locs).text.color(Colors.yellow).make(),
+                  Text(things.name.toString()).text.color(Colors.yellow).make(),
                   Wrap(
                     spacing: 12.0,
                     children: [
