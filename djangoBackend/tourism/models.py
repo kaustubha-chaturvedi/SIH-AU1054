@@ -3,6 +3,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
+from cloudinary.models import CloudinaryField
+from ckeditor.fields import RichTextField
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin,Group
@@ -81,6 +83,8 @@ class Famous(models.Model):
         (2, 'Collectibles'),
     )
     item = models.TextField()
+    images = CloudinaryField('images',blank=True,null=True)
+    description = RichTextField(blank=True,null=True)
     location = models.ForeignKey("tourism.location", on_delete=models.CASCADE,null=True)
     category = models.IntegerField(choices=CATEGORY_CHOICES, default=0)
     like = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name="likes",blank=True)
@@ -89,6 +93,8 @@ class Famous(models.Model):
     class Meta:
         verbose_name = "Famous"
         verbose_name_plural = "Famous"
+    def __str__(self):
+        return self.item
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):

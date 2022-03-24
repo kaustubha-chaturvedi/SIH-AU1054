@@ -5,8 +5,8 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
+from rest_framework.authentication import TokenAuthentication,SessionAuthentication
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, IsAuthenticated
 class FamousViewSet(ModelViewSet):
     queryset = Famous.objects.all()
     serializer_class = FamousSerializer
@@ -47,3 +47,23 @@ class UserProfileView(APIView):
         user = request.user
         serializer = UserProfileSerializer(user)
         return Response(serializer.data)
+
+class AddLikeView(APIView):
+    authentication_classes = (SessionAuthentication,TokenAuthentication)
+    permission_classes = [IsAuthenticated]
+    def post(self,request,pk,format=None):
+        user = request.user
+        item = Famous.objects.get(id=pk)
+        item.dislike.remove(user)
+        item.like.add(user)
+        return Response({'msg':'Like Success'},status=status.HTTP_200_OK)
+
+class AddDislikeView(APIView):
+    authentication_classes = (SessionAuthentication,TokenAuthentication)
+    permission_classes = [IsAuthenticated]
+    def post(self,request,pk,format=None):
+        user = request.user
+        item = Famous.objects.get(id=pk)
+        item.like.remove(user)
+        item.dislike.add(user)
+        return Response({'msg':'Dislike Success'},status=status.HTTP_200_OK)

@@ -7,6 +7,11 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class FamousSerializer(serializers.ModelSerializer):
+    ''' 
+        access image by concationg api response of famous[id][image] to https://res.cloudinary.com/sihau1054/
+        like this: https://res.cloudinary.com/sihau1054/famous[id][image]
+        https://res.cloudinary.com/sihau1054/[ image/upload/v1648112117/lkughznc7wjczxsszfsf.jpg ]
+    '''
     category = serializers.ChoiceField(choices=Famous.CATEGORY_CHOICES)
     class Meta:
         model = Famous
