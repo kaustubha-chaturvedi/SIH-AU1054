@@ -5,9 +5,9 @@ class fam_Items {
   final dynamic name;
   final dynamic description;
   final dynamic images;
-  final int location;
-  final List likes;
-  final List dislikes;
+  final dynamic location;
+  final dynamic likes;
+  final dynamic dislikes;
 
   fam_Items({
     required this.id,

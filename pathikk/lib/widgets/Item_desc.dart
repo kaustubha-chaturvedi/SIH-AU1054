@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:pathikk/widgets/model.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -24,10 +25,10 @@ class descwid extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Card(
                   elevation: 6,
-                  color: Colors.deepPurple[50],
+                  // color: Colors.deepPurple[50],
                   child: Column(children: [
                     Text(things.name).text.bold.color(Vx.black).xl4.make(),
-                    Text(things.description).text.color(Vx.gray800).make(),
+                    Html(data: things.description),
                   ]).py32(),
                 ),
               ),
