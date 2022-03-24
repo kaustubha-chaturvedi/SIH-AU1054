@@ -3,6 +3,7 @@ class fam_Items {
   final int id;
   final int category;
   final String name;
+  final dynamic images;
   final int location;
   final List likes;
   final List dislikes;
@@ -11,6 +12,7 @@ class fam_Items {
     required this.id,
     required this.category,
     required this.name,
+    required this.images,
     required this.location,
     required this.likes,
     required this.dislikes,
@@ -23,7 +25,8 @@ class fam_Items {
         name: map["item"],
         location: map["location"],
         likes: map["like"],
-        dislikes: map["dislike"]);
+        dislikes: map["dislike"],
+        images: map["images"]);
   }
 }
 
@@ -35,7 +38,9 @@ class famous_catalog {
         name: "lwda",
         location: 3,
         likes: [1, 2, 3],
-        dislikes: [4, 5, 6])
+        dislikes: [4, 5, 6],
+        images:
+            'https://media.istockphoto.com/vectors/no-image-vector-symbol-missing-available-icon-no-gallery-for-this-vector-id1128826884?k=20&m=1128826884&s=170667a&w=0&h=_cx7HW9R4Uc_OLLxg2PcRXno4KERpYLi5vCz-NEyhi0=')
   ];
 }
 

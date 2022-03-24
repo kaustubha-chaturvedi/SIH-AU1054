@@ -29,8 +29,14 @@ class Itemlister extends StatelessWidget {
       itemCount: famous_catalog.fitems.length,
       itemBuilder: (BuildContext context, int index) {
         final fam_Items things = famous_catalog.fitems[index];
-
-        return listcard1(things: things);
+        locations location = astd_location.flocs[0];
+        for (var a in astd_location.flocs) {
+          if (things.location == a.id) {
+            location = a;
+          }
+        }
+        ;
+        return listcard1(things: things, location: location);
       },
     );
   }
@@ -38,28 +44,57 @@ class Itemlister extends StatelessWidget {
 
 class listcard1 extends StatelessWidget {
   final things;
-  // final locations locationid = astd_location.flocs;
-  const listcard1({Key? key, required this.things}) : super(key: key);
+  final locations location;
+  const listcard1({Key? key, required this.things, required this.location})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.amber[50],
-      shadowColor: Colors.blue[100],
-      child: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: ListTile(
-          leading: Column(
+        // color: Colors.amber[50],
+        // shadowColor: Colors.blue[100],
+        // child: Padding(
+        //   padding: EdgeInsets.all(8.0),
+        //   child: ListTile(
+        //     leading: Column(
+        //       children: [
+        //         Text(things.name),
+        //         Text(location.locs.toString()).expand()
+        //       ],
+        //     ),
+        //     trailing: Icon(Icons.map),
+        //   ),
+        //   // child: Column(children: [Text(things.name)]),
+        // ),
+        child: Row(children: [
+      things.images != null
+          ? Image.network(
+                  "https://media-cdn.tripadvisor.com/media/photo-s/0f/1b/1d/44/view-from-boat.jpg")
+              .box
+              .make()
+              .p8()
+              .w32(context)
+          : Image.network(
+                  "https://media.istockphoto.com/vectors/no-image-vector-symbol-missing-available-icon-no-gallery-for-this-vector-id1128826884?k=20&m=1128826884&s=170667a&w=0&h=_cx7HW9R4Uc_OLLxg2PcRXno4KERpYLi5vCz-NEyhi0=")
+              .box
+              .make()
+              .p8()
+              .w32(context),
+      Expanded(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(things.name.toString()).text.bold.color(Colors.blue).make(),
+          Text(location.locs).text.color(Colors.lightBlue).make(),
+          ButtonBar(
+            alignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(things.name),
-              // if (things.location == locationid.id)
-              // Text(locationid.locs.toString()).expand()
+              Text(things.likes.toString()).text.bold.make(),
             ],
-          ),
-          trailing: Icon(Icons.map),
-        ),
-        // child: Column(children: [Text(things.name)]),
-      ),
-    );
+          )
+        ],
+      ))
+    ]));
   }
 }

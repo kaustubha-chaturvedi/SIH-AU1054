@@ -31,13 +31,18 @@ class _HomeScreenState extends State<HomeScreen> {
     // var item_data = jsonDecode(jsoitem);
 
     const url_items = "http://localhost:8000/api/famous/";
+    const url_locations = "http://localhost:8000/api/location/";
 
     var response = await http.get(Uri.parse(url_items));
     var jsoitem = response.body;
     var item_data = jsonDecode(jsoitem);
 
-    var jsolocs = await rootBundle.loadString("locdata.json");
-    var locs_data = jsonDecode(jsolocs);
+    var response2 = await http.get(Uri.parse(url_locations));
+    var jsolocation = response2.body;
+    var locs_data = jsonDecode(jsolocation);
+
+    // var jsolocs = await rootBundle.loadString("locdata.json");
+    // var locs_data = jsonDecode(jsolocs);
 
     famous_catalog.fitems = List.from(item_data)
         .map<fam_Items>((items) => fam_Items.fromMap(items))
@@ -46,7 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
     astd_location.flocs = List.from(locs_data)
         .map<locations>((locationx) => locations.fromMap(locationx))
         .toList();
-
+    print(item_data);
+    print(locs_data);
     setState(() {});
   }
 
