@@ -17,10 +17,21 @@ class descwid extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(
-              "https://media-cdn.tripadvisor.com/media/photo-s/0f/1b/1d/44/view-from-boat.jpg",
-              width: context.screenWidth,
-            ).h32(context).wFull(context),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.height * 0.3,
+              margin: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Color.fromARGB(0, 39, 34, 0),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage((things.images != null &&
+                            things.images != "")
+                        ? 'https://res.cloudinary.com/sihau1054/${things.images}'
+                        : 'https://res.cloudinary.com/sihau1054/image/upload/v1648141871/eee_k6kbyq.png')),
+              ),
+            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Card(
