@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pathikk/utils/sotre.dart';
 import 'package:pathikk/widgets/Home.dart';
+import 'package:pathikk/widgets/login.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 void main() {
@@ -22,7 +23,10 @@ class MainApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       
       debugShowCheckedModeBanner: false,
-      routes: {"/": ((context) => HomeScreen())},
+      routes: {
+        "/": ((context) => HomeScreen()),
+        "/login": ((context) => Login()),
+      },
     );
   }
 }

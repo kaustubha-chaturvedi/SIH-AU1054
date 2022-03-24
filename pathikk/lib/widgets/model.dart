@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class fam_Items {
-  final int id;
-  final int category;
-  final String name;
-  final dynamic images;
+  final dynamic id;
+  final dynamic category;
+  final dynamic name;
   final dynamic description;
+  final dynamic images;
   final int location;
   final List likes;
   final List dislikes;
@@ -13,8 +13,8 @@ class fam_Items {
     required this.id,
     required this.category,
     required this.name,
-    required this.images,
     required this.description,
+    required this.images,
     required this.location,
     required this.likes,
     required this.dislikes,

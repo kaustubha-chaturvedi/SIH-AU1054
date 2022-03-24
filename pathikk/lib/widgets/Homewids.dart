@@ -2,6 +2,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter/material.dart';
 import 'package:pathikk/widgets/model.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'Item_desc.dart';
 
 class Itemlister extends StatelessWidget {
   const Itemlister({Key? key}) : super(key: key);
