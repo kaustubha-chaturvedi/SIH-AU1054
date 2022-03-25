@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pathikk/utils/likedlist.dart';
 import 'package:pathikk/utils/store.dart';
 import 'package:pathikk/widgets/Home.dart';
 import 'package:pathikk/widgets/login.dart';
@@ -21,11 +22,11 @@ class MainApp extends StatelessWidget {
         primaryTextTheme: GoogleFonts.latoTextTheme(),
       ),
       themeMode: ThemeMode.dark,
-      
       debugShowCheckedModeBanner: false,
       routes: {
         "/": ((context) => HomeScreen()),
         "/login": ((context) => Login()),
+        "/cart": ((context) => cartx()),
       },
     );
   }

@@ -1,15 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:pathikk/utils/DislikedModel.dart';
+import 'package:pathikk/utils/addtodisliked.dart';
+import 'package:pathikk/utils/addtoliked.dart';
 import 'package:pathikk/widgets/model.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:pathikk/utils/store.dart';
+import 'package:pathikk/utils/LikedModel.dart';
+import 'package:pathikk/utils/DislikedModel.dart';
 
 class descwid extends StatelessWidget {
   final fam_Items things;
-  const descwid({Key? key, required this.things}) : super(key: key);
-
+  descwid({Key? key, required this.things}) : super(key: key);
+  final _cart = (VxState.store as appstore);
   @override
   Widget build(BuildContext context) {
+    VxState.watch(context,
+        on: [addmutation, removemutation, adddismutation, removedismutation]);
     return Scaffold(
         appBar: AppBar(
           title: Text(things.name),
@@ -52,15 +60,15 @@ class descwid extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Icon(CupertinoIcons.hand_thumbsup, size: 36),
-                Text(things.likes.length.toString()).text.bold.make(),
+                addtoliked(thing: things),
+                Text(_cart.liked.items.length.toString()).text.bold.make(),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Icon(CupertinoIcons.hand_thumbsdown, size: 36),
-                Text(things.dislikes.length.toString()).text.bold.make(),
+                addtodisliked(thing: things),
+                Text(_cart.disliked.items.length.toString()).text.bold.make(),
               ],
             ),
             const Icon(

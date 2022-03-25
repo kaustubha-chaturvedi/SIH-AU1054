@@ -45,6 +45,8 @@ class famous_catalog {
         images: '',
         description: "No Description")
   ];
+  static fam_Items getbyid(String id) =>
+      fitems.firstWhere((element) => element.id == id, orElse: () => fitems[0]);
 }
 
 class locations {

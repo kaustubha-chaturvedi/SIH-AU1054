@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:pathikk/widgets/model.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:pathikk/utils/LikedModel.dart';
+import 'package:pathikk/utils/DislikedModel.dart';
 
+import '../utils/store.dart';
 import 'Item_desc.dart';
 
 class Itemlister extends StatelessWidget {
@@ -30,11 +33,14 @@ class Itemlister extends StatelessWidget {
 class listcard1 extends StatelessWidget {
   final things;
   final locations location;
-  const listcard1({Key? key, required this.things, required this.location})
+  final _cart = (VxState.store as appstore);
+  listcard1({Key? key, required this.things, required this.location})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    VxState.watch(context,
+        on: [addmutation, removemutation, adddismutation, removedismutation]);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
       child: InkWell(
@@ -100,7 +106,7 @@ class listcard1 extends StatelessWidget {
                     ],
                   ),
                   (things.description != null && things.description != "")
-                      ? Html(data: things.description)
+                      ? Html(data: things.description.toString())
                       : Text("No description").text.color(Colors.yellow).make(),
                 ],
               ))

@@ -1,11 +1,15 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:pathikk/widgets/Homewids.dart';
 import 'package:pathikk/widgets/model.dart';
 import 'package:pathikk/widgets/search.dart';
 import 'package:velocity_x/velocity_x.dart';
+import '../utils/store.dart';
 import 'MainDrawer.dart';
+import 'package:pathikk/utils/LikedModel.dart';
+import 'package:pathikk/utils/DislikedModel.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -47,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 // main frontend widget//
-
+  final _cart = (VxState.store as appstore);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
