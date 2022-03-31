@@ -48,36 +48,22 @@ class UserProfileView(APIView):
         serializer = UserProfileSerializer(user)
         return Response(serializer.data)
 
-# class AddLikeView(APIView):
-#     authentication_classes = (SessionAuthentication,TokenAuthentication)
-#     permission_classes = [IsAuthenticated]
-#     def post(self,request,pk,format=None):
-#         user = request.user
-#         item = Famous.objects.get(id=pk)
-#         item.dislike.remove(user)
-#         item.like.add(user)
-#         return Response({'msg':'Like Success'},status=status.HTTP_200_OK)
-
-# class AddDislikeView(APIView):
-#     authentication_classes = (SessionAuthentication,TokenAuthentication)
-#     permission_classes = [IsAuthenticated]
-#     def post(self,request,pk,format=None):
-#         user = request.user
-#         item = Famous.objects.get(id=pk)
-#         item.like.remove(user)
-#         item.dislike.add(user)
-#         return Response({'msg':'Dislike Success'},status=status.HTTP_200_OK)
-
-class AddLikeInt(APIView):
+class AddLikeView(APIView):
+    authentication_classes = (SessionAuthentication,TokenAuthentication)
+    permission_classes = [IsAuthenticated]
     def post(self,request,pk,format=None):
+        user = request.user
         item = Famous.objects.get(id=pk)
-        item.likeint += 1
-        item.save()
+        item.dislike.remove(user)
+        item.like.add(user)
         return Response({'msg':'Like Success'},status=status.HTTP_200_OK)
 
-class AddDislikeInt(APIView):
+class AddDislikeView(APIView):
+    authentication_classes = (SessionAuthentication,TokenAuthentication)
+    permission_classes = [IsAuthenticated]
     def post(self,request,pk,format=None):
+        user = request.user
         item = Famous.objects.get(id=pk)
-        item.dislikeint += 1
-        item.save()
+        item.like.remove(user)
+        item.dislike.add(user)
         return Response({'msg':'Dislike Success'},status=status.HTTP_200_OK)

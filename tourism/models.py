@@ -89,8 +89,6 @@ class Famous(models.Model):
     category = models.IntegerField(choices=CATEGORY_CHOICES, default=0)
     like = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name="likes",blank=True)
     dislike = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name="dislikes",blank=True)
-    likeint = models.IntegerField(default=0)
-    dislikeint = models.IntegerField(default=0)
     class Meta:
         verbose_name = "Famous"
         verbose_name_plural = "Famous"
